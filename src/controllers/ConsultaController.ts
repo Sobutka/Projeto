@@ -10,7 +10,7 @@ export class ConsultaController{
 
         if(!data){
             return res.status(400).json({ message: 'A data é obrigatória'})
-        }
+        }   
         if(!horaInicio){
             return res.status(400).json({ message: 'A Hora Inicial é obrigatória'})
         }

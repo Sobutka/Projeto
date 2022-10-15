@@ -8,6 +8,7 @@ const routes = Router()
 routes.post('/consulta/', new ConsultaController().create)
 routes.post('/paciente', new PacienteController().create)
 routes.post('/dentista', new DentistaController().create)
-routes.get('/consulta', new ConsultaController().list)
+routes.get('/paciente', new PacienteController().list)
+routes.put('/paciente/:codPac', new PacienteController().update)
 
 export default routes

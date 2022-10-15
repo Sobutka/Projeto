@@ -29,4 +29,33 @@ export class PacienteController{
             return res.status(500).json({message: 'Internal Server Error'})
         }
     }
+
+    async list(req: Request, res:Response){
+        try {
+            const paciente = await pacienteRepository.find({
+            })
+            return res.json(paciente)
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
+
+    async update(req: Request, res: Response){
+        try {
+            const{ codPac } = req.params
+
+            const paciente = await pacienteRepository.update(codPac, req.body)
+
+            if(paciente.affected == 1){
+                const pacienteUpdated = await pacienteRepository.findOneBy({codPac:Number()})
+                return res.json(pacienteUpdated)
+            } else {
+                return res.status(404).json({message:'Paciente não encontrado'})
+            }
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
 }
