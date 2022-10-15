@@ -1,12 +1,9 @@
 import { Request, Response } from "express";
 import { consultaRepository } from "../repositories/consultaRepository";
-import { dentistaRepository } from "../repositories/dentistaRepository";
-import { pacienteRepository } from "../repositories/pacienteRepository";
 
 export class ConsultaController{
     async create(req: Request, res: Response){
-        const { data, horaInicio, horaFinal, confirmado, consRealizada } = req.body
-        const {dentista_codDent, paciente_codPac} = req.params
+        const { data, horaInicio, horaFinal, confirmado, consRealizada, codPac, codDent } = req.body
 
         if(!data){
             return res.status(400).json({ message: 'A data é obrigatória'})
@@ -16,28 +13,8 @@ export class ConsultaController{
         }
 
         try {
-            const paciente = await pacienteRepository.findOneBy({codPac: Number(paciente_codPac)})
 
-            if(!paciente){
-                return res.status(404).json({ message: 'Paciente não cadastrado'})
-            }
-
-            const dentista = await dentistaRepository.findOneBy({codDent: Number(dentista_codDent)})
-
-            if(!dentista){
-                return res .status(404).json({ message: 'Dentista não cadastrado'})
-            }
-
-            const newConsulta = consultaRepository.create({ 
-                data,
-                horaInicio,
-                horaFinal,
-                confirmado,
-                consRealizada,
-                dentista,
-                paciente
-
-            })
+            const newConsulta = consultaRepository.create({ data,horaInicio,horaFinal,confirmado,consRealizada, codPac, codDent})
 
             await consultaRepository.save(newConsulta)
 
@@ -51,12 +28,44 @@ export class ConsultaController{
     async list(req: Request, res:Response){
         try {
             const consultas = await consultaRepository.find({
-                relations:{
-                    paciente:true,
-                    dentista:true
-                }
             })
             return res.json(consultas)
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
+
+    async update(req: Request, res: Response){
+        try {
+            const{ codCons } = req.params
+
+            const consulta = await consultaRepository.update(codCons, req.body)
+
+            if(consulta.affected == 1){
+                const consultaUpdated = await consultaRepository.findOneBy({codCons:Number()})
+                return res.json({message:'Consulta Atualizado'})
+            } else {
+                return res.status(404).json({message:'Consulta não encontrado'})
+            }
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
+
+    async delete(req: Request, res: Response){
+        try {   
+            const{ codCons } = req.params
+
+            const consulta = await consultaRepository.delete(codCons)
+
+            if(consulta.affected == 1){
+                const consultaDeleted = await consultaRepository.findOneBy({codCons:Number()})
+                return res.json({message:'Consulta Excluido'})
+            } else {
+                return res.status(404).json({message:'Consulta não encontrado'})
+            }
         } catch (error) {
             console.log(error);
             return res.status(500).json({message: 'Internal Server Error'})

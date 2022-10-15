@@ -49,7 +49,25 @@ export class PacienteController{
 
             if(paciente.affected == 1){
                 const pacienteUpdated = await pacienteRepository.findOneBy({codPac:Number()})
-                return res.json(pacienteUpdated)
+                return res.json({message:'Paciente Atualizado'})
+            } else {
+                return res.status(404).json({message:'Paciente não encontrado'})
+            }
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
+
+    async delete(req: Request, res: Response){
+        try {   
+            const{ codPac } = req.params
+
+            const paciente = await pacienteRepository.delete(codPac)
+
+            if(paciente.affected == 1){
+                const pacienteDeleted = await pacienteRepository.findOneBy({codPac:Number()})
+                return res.json({message:'Paciente Excluido'})
             } else {
                 return res.status(404).json({message:'Paciente não encontrado'})
             }

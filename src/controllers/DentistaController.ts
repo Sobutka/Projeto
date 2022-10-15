@@ -40,4 +40,40 @@ export class DentistaController{
             return res.status(500).json({message: 'Internal Server Error'})
         }
     }
+
+    async update(req: Request, res: Response){
+        try {
+            const{ codDent } = req.params
+
+            const dentista = await dentistaRepository.update(codDent, req.body)
+
+            if(dentista.affected == 1){
+                const dentistaUpdated = await dentistaRepository.findOneBy({codDent:Number()})
+                return res.json({message:'Dentista Atualizado'})
+            } else {
+                return res.status(404).json({message:'Dentista não encontrado'})
+            }
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
+
+    async delete(req: Request, res: Response){
+        try {   
+            const{ codDent } = req.params
+
+            const dentista = await dentistaRepository.delete(codDent)
+
+            if(dentista.affected == 1){
+                const dentistaDeleted = await dentistaRepository.findOneBy({codDent:Number()})
+                return res.json({message:'Dentista Excluido'})
+            } else {
+                return res.status(404).json({message:'Dentista não encontrado'})
+            }
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
 }
