@@ -14,4 +14,5 @@ routes.delete('/paciente/:codPac', new PacienteController().delete)
 routes.get('/dentista', new DentistaController().list)
 routes.put('/dentista/:codDent', new DentistaController().update)
 routes.delete('/dentista/:codDent', new DentistaController().delete)
+routes.get('/consulta', new ConsultaController().list)
 export default routes

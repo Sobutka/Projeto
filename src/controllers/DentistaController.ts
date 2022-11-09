@@ -3,7 +3,9 @@ import { dentistaRepository } from "../repositories/dentistaRepository";
 
 export class DentistaController{
     async create(req: Request, res: Response){
-        const { nome, email, dataNasc, celular, celularRecado } = req.body
+        let { nome, email, dataNasc, celular, celularRecado } = req.body
+        dataNasc = new Date(dataNasc.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
+        console.log(dataNasc)
 
         if(!nome){
             return res.status(400).json({ message: 'O Nome é obrigatório'})

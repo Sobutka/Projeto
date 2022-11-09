@@ -3,7 +3,9 @@ import { consultaRepository } from "../repositories/consultaRepository";
 
 export class ConsultaController{
     async create(req: Request, res: Response){
-        const { data, horaInicio, horaFinal, confirmado, consRealizada, codPac, codDent } = req.body
+        let { data, horaInicio, horaFinal, confirmado, consRealizada, paciente, dentista} = req.body
+        data = new Date(data.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
+        console.log(data)
 
         if(!data){
             return res.status(400).json({ message: 'A data é obrigatória'})
@@ -14,7 +16,7 @@ export class ConsultaController{
 
         try {
 
-            const newConsulta = consultaRepository.create({ data,horaInicio,horaFinal,confirmado,consRealizada, codPac, codDent})
+            const newConsulta = await consultaRepository.create({ data,horaInicio,horaFinal,confirmado,consRealizada, paciente, dentista})
 
             await consultaRepository.save(newConsulta)
 
@@ -27,7 +29,7 @@ export class ConsultaController{
 
     async list(req: Request, res:Response){
         try {
-            const consultas = await consultaRepository.find({
+            let consultas = await consultaRepository.find({
             })
             return res.json(consultas)
         } catch (error) {

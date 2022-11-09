@@ -12,8 +12,8 @@ export class Dentista{
     @Column({type: 'text' })
     email: string
 
-    @Column({type: 'text' })
-    dataNasc: string
+    @Column({type: 'date' })
+    dataNasc: Date
 
     @Column({type: 'text' })
     celular: string

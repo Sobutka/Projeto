@@ -7,7 +7,7 @@ export class Consulta{
     @PrimaryGeneratedColumn()
     codCons: number
 
-    @Column({type: 'text' })
+    @Column({type: 'date' })
     data: Date
 
     @Column({type: 'text' })
@@ -19,7 +19,7 @@ export class Consulta{
     @Column({type: 'text', enum:['C','N'], default: 'N'})
     confirmado: string
     
-    @Column({type: 'text', enum:['S','N'], default: 'N'})
+    @Column({type: 'text',enum:['S','N'], default: 'N'})
     consRealizada:string
 
     @ManyToOne(() => Dentista, dentista => dentista.consulta)
