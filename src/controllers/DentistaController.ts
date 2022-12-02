@@ -3,12 +3,15 @@ import { dentistaRepository } from "../repositories/dentistaRepository";
 
 export class DentistaController{
     async create(req: Request, res: Response){
-        let { nome, email, dataNasc, celular, celularRecado } = req.body
+        let { nome, cro, email, dataNasc, celular, celularRecado } = req.body
         dataNasc = new Date(dataNasc.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
         console.log(dataNasc)
 
         if(!nome){
             return res.status(400).json({ message: 'O Nome é obrigatório'})
+        }
+        if(!cro){
+            return res.status(400).json({ message: 'O CRO é obrigatório'})
         }
         if(!email){
             return res.status(400).json({ message: 'O Email é obrigatório'})
@@ -21,7 +24,7 @@ export class DentistaController{
         }
 
         try {
-            const newDentista = dentistaRepository.create({ nome, email, dataNasc, celular, celularRecado })
+            const newDentista = dentistaRepository.create({ nome, cro, email, dataNasc, celular, celularRecado })
 
             await dentistaRepository.save(newDentista)
 
@@ -36,6 +39,17 @@ export class DentistaController{
         try {
             const dentista = await dentistaRepository.find({
             })
+            return res.json(dentista)
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
+
+    async listId(req: Request, res:Response){
+        try {
+            const{ codDent } = req.params
+            const dentista = await dentistaRepository.findOneBy({codDent:Number(codDent)})
             return res.json(dentista)
         } catch (error) {
             console.log(error);

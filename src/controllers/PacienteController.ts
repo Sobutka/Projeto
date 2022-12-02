@@ -3,12 +3,15 @@ import { pacienteRepository } from "../repositories/pacienteRepository";
 
 export class PacienteController{
     async create(req: Request, res: Response){
-        let { nome, email, dataNasc, celular, celularRecado } = req.body
+        let { nome, cpf, email, dataNasc, celular, celularRecado } = req.body
         dataNasc = new Date(dataNasc.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
         console.log(dataNasc)
 
         if(!nome){
             return res.status(400).json({ message: 'O Nome é obrigatório'})
+        }
+        if(!cpf){
+            return res.status(400).json({ message: 'O CPF é obrigatório'})
         }
         if(!email){
             return res.status(400).json({ message: 'O Email é obrigatório'})
@@ -21,7 +24,7 @@ export class PacienteController{
         }
 
         try {
-            const newPaciente = pacienteRepository.create({ nome, email, dataNasc, celular, celularRecado })
+            const newPaciente = pacienteRepository.create({ nome, cpf, email, dataNasc, celular, celularRecado })
 
             await pacienteRepository.save(newPaciente)
 
@@ -36,6 +39,17 @@ export class PacienteController{
         try {
             const paciente = await pacienteRepository.find({
             })
+            return res.json(paciente)
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
+
+    async listId(req: Request, res:Response){
+        try {
+            const{ codPac } = req.params
+            const paciente = await pacienteRepository.findOneBy({codPac:Number(codPac)})
             return res.json(paciente)
         } catch (error) {
             console.log(error);

@@ -9,6 +9,9 @@ export class Dentista{
     @Column({type: 'text' })
     nome: string
 
+    @Column({type: 'text'})
+    cro: string
+
     @Column({type: 'text' })
     email: string
 

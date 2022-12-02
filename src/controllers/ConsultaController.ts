@@ -38,6 +38,17 @@ export class ConsultaController{
         }
     }
 
+    async listId(req: Request, res:Response){
+        try {
+            const{ codCons } = req.params
+            let consultas = await consultaRepository.findOneBy({codCons:Number(codCons)})
+            return res.json(consultas)
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message: 'Internal Server Error'})
+        }
+    }
+
     async update(req: Request, res: Response){
         try {
             const{ codCons } = req.params

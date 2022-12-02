@@ -16,10 +16,10 @@ export class Consulta{
     @Column({type: 'text', nullable: true})
     horaFinal: string
 
-    @Column({type: 'text', enum:['C','N'], default: 'N'})
+    @Column({type: 'text'})
     confirmado: string
     
-    @Column({type: 'text',enum:['S','N'], default: 'N'})
+    @Column({type: 'text' })
     consRealizada:string
 
     @ManyToOne(() => Dentista, dentista => dentista.consulta)

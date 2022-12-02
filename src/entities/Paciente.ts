@@ -9,6 +9,9 @@ export class Paciente{
     @Column({type: 'text' })
     nome: string
 
+    @Column({type: 'text'})
+    cpf: string
+    
     @Column({type: 'text' })
     email: string
 
