@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Anamnese } from "./Anamnese";
 import { Dentista } from "./Dentista";
 import { Paciente } from "./Paciente";
 
@@ -29,4 +30,8 @@ export class Consulta{
     @ManyToOne(() => Paciente, paciente => paciente.consulta)
     @JoinColumn({name: 'paciente_codPac'})
     paciente: Paciente
+
+    @ManyToOne(() => Anamnese, anamnese => anamnese.consulta)
+    @JoinColumn({name: 'anamnese_codAnam'})
+    anamnese: Anamnese
 }

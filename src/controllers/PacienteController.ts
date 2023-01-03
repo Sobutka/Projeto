@@ -1,3 +1,4 @@
+import { validate } from "class-validator";
 import { Request, Response } from "express";
 import { pacienteRepository } from "../repositories/pacienteRepository";
 
@@ -25,10 +26,15 @@ export class PacienteController{
 
         try {
             const newPaciente = pacienteRepository.create({ nome, cpf, email, dataNasc, celular, celularRecado })
+            
+            const errors = await validate(newPaciente)
+            
+            if(errors.length==0){
+                await pacienteRepository.save(newPaciente)
+                return res.status(201).json(newPaciente)
+            }
+            res.status(400).json(errors)    
 
-            await pacienteRepository.save(newPaciente)
-
-            return res.status(201).json(newPaciente)
         } catch (error) {
             console.log(error);
             return res.status(500).json({message: 'Internal Server Error'})

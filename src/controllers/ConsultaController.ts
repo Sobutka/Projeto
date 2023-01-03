@@ -29,8 +29,7 @@ export class ConsultaController{
 
     async list(req: Request, res:Response){
         try {
-            let consultas = await consultaRepository.find({
-            })
+            let consultas = await consultaRepository.find({})
             return res.json(consultas)
         } catch (error) {
             console.log(error);
