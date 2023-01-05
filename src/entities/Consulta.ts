@@ -17,11 +17,11 @@ export class Consulta{
     @Column({type: 'text', nullable: true})
     horaFinal: string
 
-    @Column({type: 'text'})
-    confirmado: string
+    @Column({type: 'boolean'})
+    confirmado: boolean = false
     
-    @Column({type: 'text' })
-    consRealizada:string
+    @Column({type: 'boolean'})
+    consRealizada: boolean = false
 
     @ManyToOne(() => Dentista, dentista => dentista.consulta)
     @JoinColumn({name: 'dentista_codDent'})

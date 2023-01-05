@@ -6,83 +6,83 @@ export class Anamnese{
     @PrimaryGeneratedColumn()
     codAnam : number
 
-    @Column({type: 'boolean', nullable: true})
-    cirurgia : boolean
+    @Column({type: 'boolean'})
+    cirurgia : boolean = false
 
     @Column({type: 'text', nullable: true})
     qCirurgia : String
 
-    @Column({type: 'boolean', nullable: true})
-    alergiaRemedio : boolean
+    @Column({type: 'boolean'})
+    alergiaRemedio : boolean = false
 
     @Column({type: 'text', nullable: true})
     qAlergiaRemedio : String
 
-    @Column({type: 'boolean', nullable: true})
-    pressaoAlta : boolean
+    @Column({type: 'boolean'})
+    pressaoAlta : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    sangraCorte : boolean
+    @Column({type: 'boolean'})
+    sangraCorte : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    manchasRochas : boolean
+    @Column({type: 'boolean'})
+    manchasRochas : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    cicatrizacaoDemorada : boolean
+    @Column({type: 'boolean'})
+    cicatrizacaoDemorada : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    anemia : boolean
+    @Column({type: 'boolean'})
+    anemia : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    transfusaoSangue : boolean
+    @Column({type: 'boolean'})
+    transfusaoSangue : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    dst : boolean
+    @Column({type: 'boolean'})
+    dst : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    tonturas : boolean
+    @Column({type: 'boolean'})
+    tonturas : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    convulsoes : boolean
+    @Column({type: 'boolean'})
+    convulsoes : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    diabetes : boolean
+    @Column({type: 'boolean'})
+    diabetes : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    fuma : boolean
+    @Column({type: 'boolean'})
+    fuma : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    alcool : boolean
+    @Column({type: 'boolean'})
+    alcool : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    asma : boolean
+    @Column({type: 'boolean'})
+    asma : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    bronquite : boolean
+    @Column({type: 'boolean'})
+    bronquite : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    rinite : boolean
+    @Column({type: 'boolean'})
+    rinite : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    sinusite : boolean
+    @Column({type: 'boolean'})
+    sinusite : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    gastrite : boolean
+    @Column({type: 'boolean'})
+    gastrite : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    alergiaPeniscilina : boolean
+    @Column({type: 'boolean'})
+    alergiaPeniscilina : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    cancerDeProstata : boolean
+    @Column({type: 'boolean'})
+    cancerDeProstata : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    alergiaIodo : boolean
+    @Column({type: 'boolean'})
+    alergiaIodo : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    denteMole : boolean
+    @Column({type: 'boolean'})
+    denteMole : boolean = false
 
-    @Column({type: 'boolean', nullable: true})
-    feridaLabioeLingua : boolean
+    @Column({type: 'boolean'})
+    feridaLabioeLingua : boolean = false
 
     @OneToMany(() => Consulta, (consulta) => consulta.dentista)
     consulta: Consulta[]

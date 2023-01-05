@@ -16,7 +16,7 @@ export class ConsultaController{
 
         try {
 
-            const newConsulta = await consultaRepository.create({ data,horaInicio,horaFinal,confirmado,consRealizada, paciente, dentista})
+            const newConsulta = consultaRepository.create({ data,horaInicio,horaFinal,confirmado,consRealizada, paciente, dentista})
 
             await consultaRepository.save(newConsulta)
 

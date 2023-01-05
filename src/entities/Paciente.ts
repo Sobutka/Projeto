@@ -1,4 +1,4 @@
-import { IsEmail, MaxLength} from "class-validator";
+import { IsEmail, MaxLength, MinLength} from "class-validator";
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Consulta } from "./Consulta";
 
@@ -27,6 +27,8 @@ export class Paciente{
     celular: string
 
     @Column({type: 'text', nullable: true})
+    @MaxLength(11)
+    @MinLength(0)
     celularRecado: string
     
     @OneToMany(() => Consulta, (consulta) => consulta.paciente)
